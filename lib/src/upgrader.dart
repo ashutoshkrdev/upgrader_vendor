@@ -37,7 +37,7 @@ typedef WillDisplayUpgradeCallback = void Function(
 typedef UpgraderEvaluateNeed = bool;
 
 /// There are two different dialog styles: Cupertino and Material
-enum UpgradeDialogStyle { cupertino, material }
+enum UpgradeDialogStyle { cupertino, material, custom }
 
 /// A class to define the configuration for the appcast. The configuration
 /// contains two parts: a URL to the appcast, and a list of supported OS
@@ -654,10 +654,62 @@ class Upgrader with WidgetsBindingObserver {
       context: context,
       builder: (BuildContext context) {
         return WillPopScope(
-            onWillPop: () async => _shouldPopScope(),
-            child: _alertDialog(title ?? '', message, releaseNotes, context,
-                dialogStyle == UpgradeDialogStyle.cupertino));
+          onWillPop: () async => _shouldPopScope(),
+          child: dialogStyle == UpgradeDialogStyle.custom
+              ? _customDialog(context)
+              : _alertDialog(title ?? '', message, releaseNotes, context,
+                  dialogStyle == UpgradeDialogStyle.cupertino),
+        );
       },
+    );
+  }
+
+  Widget _customDialog(BuildContext context) {
+    return Dialog(
+      backgroundColor: const Color(0xfffdf2df),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: const BorderSide(
+          color: Color.fromARGB(255, 5, 99, 51),
+          width: 3,
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 20),
+          Image.asset(
+            'assets/app_icon/icon_android.png',
+            height: 80,
+          ),
+          const Text(
+            "New version of the app is available,\nplease click here to update",
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
+              onUserUpdated(context, !blocked());
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              foregroundColor: Colors.white,
+              backgroundColor: const Color.fromARGB(255, 5, 99, 51),
+            ),
+            child: const Text(
+              "UPDATE NOW",
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+        ],
+      ),
     );
   }
 
