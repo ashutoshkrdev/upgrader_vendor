@@ -666,7 +666,7 @@ class Upgrader with WidgetsBindingObserver {
 
   Widget _customDialog(BuildContext context) {
     return Dialog(
-      backgroundColor: const Color(0xfffdf2df),
+      // backgroundColor: const Color(0xfffdf2df),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: const BorderSide(
@@ -683,6 +683,7 @@ class Upgrader with WidgetsBindingObserver {
             'assets/app_icon/icon_android.png',
             height: 80,
           ),
+          const SizedBox(height: 20),
           const Text(
             "New version of the app is available,\nplease click here to update",
             textAlign: TextAlign.center,
