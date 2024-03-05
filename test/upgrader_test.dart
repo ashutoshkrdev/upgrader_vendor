@@ -1079,7 +1079,7 @@ void verifyMessages(UpgraderMessages messages, String code) {
 class _MyWidget extends StatelessWidget {
   final Upgrader upgrader;
 
-  const _MyWidget({Key? key, required this.upgrader}) : super(key: key);
+  const _MyWidget({super.key, required this.upgrader});
 
   @override
   Widget build(BuildContext context) {
@@ -1102,7 +1102,7 @@ class _MyWidget extends StatelessWidget {
 class _MyWidgetCard extends StatelessWidget {
   final Upgrader upgrader;
 
-  const _MyWidgetCard({Key? key, required this.upgrader}) : super(key: key);
+  const _MyWidgetCard({required this.upgrader});
 
   @override
   Widget build(BuildContext context) {

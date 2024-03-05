@@ -653,8 +653,8 @@ class Upgrader with WidgetsBindingObserver {
       barrierDismissible: canDismissDialog,
       context: context,
       builder: (BuildContext context) {
-        return WillPopScope(
-          onWillPop: () async => _shouldPopScope(),
+        return PopScope(
+          onPopInvoked: (didPop) async => _shouldPopScope(),
           child: dialogStyle == UpgradeDialogStyle.custom
               ? _customDialog(context)
               : _alertDialog(title ?? '', message, releaseNotes, context,
